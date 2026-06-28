@@ -23,3 +23,16 @@ class HomePage(BasePage):
 
     def get_all_headings(self):
         return self.page.locator(self.HEADINGS)
+    
+# --- Book-link helpers (used by TC2 / TC3) ---
+    BOOK_LINK = "article.product_pod h3 a"
+
+    def get_book_links(self):
+        return self.page.locator(self.BOOK_LINK)
+
+    def get_book_full_title(self, index: int) -> str:
+        link = self.get_book_links().nth(index)
+        return (link.get_attribute("title") or "").strip()
+
+    def open_book(self, index: int) -> None:
+        self.get_book_links().nth(index).click()
