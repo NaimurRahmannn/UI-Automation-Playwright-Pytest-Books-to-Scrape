@@ -40,5 +40,27 @@ class HomePage(BasePage):
     BOOK_PRICE = "article.product_pod p.price_color"
 
     def get_book_price(self, index: int) -> str:
-        """return  book price text from the homepage """
+        """return  book price text from the homepage"""
         return self.page.locator(self.BOOK_PRICE).nth(index).inner_text().strip()
+
+    ALL_LINKS = "a"
+
+    def get_all_link_hrefs(self) -> list[str]:
+        """return all absolute, de-duplicated href URLs on the page"""
+        from urllib.parse import urljoin
+
+        anchors = self.page.locator(self.ALL_LINKS)
+        count = anchors.count()
+
+        urls = set()
+        for i in range(count):
+            href = anchors.nth(i).get_attribute("href")
+            if not href:
+                continue
+            href = href.strip()
+            if href.startswith("#") or href.lower().startswith("javascript:"):
+                continue
+            absolute = urljoin(self.get_url(), href)
+            urls.add(absolute)
+
+        return sorted(urls)
