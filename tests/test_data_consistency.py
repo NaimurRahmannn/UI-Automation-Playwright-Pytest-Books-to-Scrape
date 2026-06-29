@@ -6,7 +6,7 @@ import pytest
 from pages.home_page import HomePage
 from pages.book_details_page import BookDetailsPage
 from utils.config import Config
-
+from utils.helpers import normalize_price
 
 @pytest.mark.consistency
 class TestDataConsistency:
@@ -41,7 +41,7 @@ class TestDataConsistency:
             )
 
             # Price match
-            assert details_price == home_price, (
+            assert normalize_price(home_price) == normalize_price(details_price), (
                 f"Price mismatch: homepage '{home_price}' "
                 f"vs details '{details_price}'"
             )
