@@ -1,6 +1,6 @@
 # Enterprise UI Automation Framework – Books to Scrape
 
-A production-ready UI automation framework built with **Playwright** and **Pytest** that
+A UI automation framework built with **Playwright** and **Pytest** that
 validates the functionality, data consistency, UI elements, and navigation behavior of the
 [Books to Scrape](https://books.toscrape.com/index.html) sandbox website. The framework runs
 both locally and through GitHub Actions CI/CD, and produces both **HTML** and **Allure** test
@@ -31,10 +31,7 @@ reports.
 
 ## Project Overview
 
-This project automates and validates the core user-facing behavior of the Books to Scrape
-website. It is designed as a maintainable, reusable framework rather than a collection of
-one-off scripts: page interactions are encapsulated in Page Object classes, configuration is
-centralized, and tests assert against live page data.
+This project tests the main user-facing behavior of the Books to Scrape website. It separates page actions, helper methods, configuration, and test assertions so the tests stay clean and are easier to update when the website changes.
 
 The suite covers five functional areas:
 
