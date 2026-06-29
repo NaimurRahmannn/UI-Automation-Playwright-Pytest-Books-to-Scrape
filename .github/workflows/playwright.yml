@@ -6,7 +6,6 @@ on:
   pull_request:
     branches: ["main"]
 
-
 permissions:
   contents: read
   pages: write
@@ -18,11 +17,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-     
       - name: Checkout repository
         uses: actions/checkout@v4
 
-  
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
@@ -33,7 +30,6 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-     
       - name: Install Playwright browsers
         run: playwright install --with-deps chromium
 
@@ -41,10 +37,9 @@ jobs:
       - name: Create report directories
         run: mkdir -p reports/html reports/allure-results
 
-      # Execute all tests 
+      # Execute all tests
       - name: Run tests
         run: pytest
-
 
       - name: Upload HTML report
         if: always()
@@ -53,7 +48,6 @@ jobs:
           name: html-report
           path: reports/html/
 
-   
       - name: Upload Allure results
         if: always()
         uses: actions/upload-artifact@v4
@@ -74,14 +68,19 @@ jobs:
           curl -L -o allure.tgz "https://github.com/allure-framework/allure2/releases/download/2.39.0/allure-2.39.0.tgz"
           tar -zxf allure.tgz
           ./allure-2.39.0/bin/allure generate reports/allure-results --clean -o allure-report
-     
+
       - name: Upload Allure report for Pages
         if: always()
         uses: actions/upload-pages-artifact@v3
         with:
           path: allure-report
 
- 
+      - name: Upload Playwright artifacts (screenshots, videos, traces)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-artifacts
+          path: test-results/
   deploy-pages:
     name: Publish Allure report to Pages
     needs: test
