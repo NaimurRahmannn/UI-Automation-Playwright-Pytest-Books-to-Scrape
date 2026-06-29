@@ -1,4 +1,3 @@
-
 from playwright.sync_api import Page
 
 from pages.base_page import BasePage
@@ -9,6 +8,7 @@ class HomePage(BasePage):
     BOOK_ITEM = "article.product_pod"
     HEADINGS = "h1, h2, h3, h4, h5, h6"
     BOOKS_CONTAINER = "section"
+
     def __init__(self, page: Page):
         super().__init__(page)
 
@@ -23,8 +23,8 @@ class HomePage(BasePage):
 
     def get_all_headings(self):
         return self.page.locator(self.HEADINGS)
-    
-# --- Book-link helpers (used by TC2 / TC3) ---
+
+    # --- Book-link helpers (used by TC2 / TC3) ---
     BOOK_LINK = "article.product_pod h3 a"
 
     def get_book_links(self):
@@ -36,3 +36,9 @@ class HomePage(BasePage):
 
     def open_book(self, index: int) -> None:
         self.get_book_links().nth(index).click()
+
+    BOOK_PRICE = "article.product_pod p.price_color"
+
+    def get_book_price(self, index: int) -> str:
+        """return  book price text from the homepage """
+        return self.page.locator(self.BOOK_PRICE).nth(index).inner_text().strip()
