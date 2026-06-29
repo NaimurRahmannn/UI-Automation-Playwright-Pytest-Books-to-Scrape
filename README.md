@@ -54,6 +54,7 @@ The suite covers five functional areas:
 - Dual reporting: pytest-html and Allure.
 - GitHub Actions CI/CD that runs on every push and pull request and publishes the Allure
   report to GitHub Pages.
+- Screenshots, videos, and traces captured for every test and uploaded as CI artifacts.
 
 ---
 
@@ -316,9 +317,16 @@ The pipeline installs the Allure CLI directly (with `setup-java`) and runs `allu
 rather than relying on a Docker-based third-party action that proved unreliable to build on the
 runner.
 
+**Screenshots, videos, and traces captured on every run.**
+Playwright is configured (via `--screenshot=on`, `--video=on`, and `--tracing=on` in
+`pytest.ini`) to capture a screenshot, video, and trace for every test, whether it passes or
+fails. These are written to `test-results/` and uploaded by CI as artifacts, giving a complete
+visual record of every run rather than only failures.
+
 ---
 
 ## Known Limitations
+
 **Random sampling.**
 TC2 and TC3 select 5 random books per run, so each run exercises a different subset. This
 broadens coverage over time but means a single run does not validate every book.
