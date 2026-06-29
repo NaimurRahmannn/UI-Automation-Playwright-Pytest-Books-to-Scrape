@@ -24,7 +24,7 @@ class HomePage(BasePage):
     def get_all_headings(self):
         return self.page.locator(self.HEADINGS)
 
-    # --- Book-link helpers (used by TC2 / TC3) ---
+    # --- Book-link helpers  ---
     BOOK_LINK = "article.product_pod h3 a"
 
     def get_book_links(self):
