@@ -7,7 +7,7 @@ from utils.config import Config
 class HomePage(BasePage):
     BOOK_ITEM = "article.product_pod"
     HEADINGS = "h1, h2, h3, h4, h5, h6"
-    BOOKS_CONTAINER = "section"
+    BOOKS_CONTAINER = "ol.row"
 
     def __init__(self, page: Page):
         super().__init__(page)
