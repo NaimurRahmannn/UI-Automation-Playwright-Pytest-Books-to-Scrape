@@ -24,7 +24,7 @@ class HomePage(BasePage):
     def get_all_headings(self):
         return self.page.locator(self.HEADINGS)
 
-    # --- Book-link helpers  ---
+
     BOOK_LINK = "article.product_pod h3 a"
 
     def get_book_links(self):
@@ -64,3 +64,19 @@ class HomePage(BasePage):
             urls.add(absolute)
 
         return sorted(urls)
+    
+
+    PRODUCT_IMAGE = "article.product_pod img"
+    NEXT_BUTTON = "li.next a"
+
+    def get_images(self):
+        """return the locator for all product images on the current page"""
+        return self.page.locator(self.PRODUCT_IMAGE)
+
+    def has_next_page(self) -> bool:
+        """if a 'next' pagination button is present then return true"""
+        return self.page.locator(self.NEXT_BUTTON).count() > 0
+
+    def go_to_next_page(self) -> None:
+        self.page.locator(self.NEXT_BUTTON).click()
+        self.page.locator(self.BOOK_ITEM).first.wait_for(state="visible")
